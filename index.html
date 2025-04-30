@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Custom T-Shirt Upload</title>
+</head>
+<body>
+  <h1>Submit Your Custom T-Shirt Design</h1>
+
+  <!-- Form begins -->
+  <form id="orderForm">
+
+    <!-- Name field -->
+    <label>Your Name:<br>
+      <input type="text" name="name" required>
+    </label><br><br>
+
+    <!-- Email field -->
+    <label>Your Email:<br>
+      <input type="email" name="email" required>
+    </label><br><br>
+
+    <!-- T-shirt size -->
+    <label>Shirt Size (S, M, L, XL, etc):<br>
+      <input type="text" name="size" required>
+    </label><br><br>
+
+    <!-- T-shirt color -->
+    <label>Shirt Color:<br>
+      <input type="text" name="color" required>
+    </label><br><br>
+
+    <!-- Additional notes -->
+    <label>Notes or special instructions:<br>
+      <textarea name="notes" rows="4" cols="40"></textarea>
+    </label><br><br>
+
+    <!-- File input -->
+    <label>Upload your design (image file only):<br>
+      <input type="file" name="file" accept="image/*" required>
+    </label><br><br>
+
+    <!-- Submit button -->
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Message box (optional) -->
+  <p id="message"></p>
+
+  <!-- JavaScript to handle form submission -->
+  <script>
+    const form = document.getElementById("orderForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      const fileInput = form.file;
+      const file = fileInput.files[0];
+
+      if (!file) {
+        message.textContent = "Please upload an image file.";
+        return;
+      }
+
+      // Read file as Base64
+      const reader = new FileReader();
+      reader.onload = function() {
+        const base64Data = reader.result.split(",")[1];
+
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          size: form.size.value,
+          color: form.color.value,
+          notes: form.notes.value,
+          fileData: base64Data,
+          fileName: file.name,
+          mimeType: file.type
+        };
+
+        // Replace this URL with your Apps Script Web App URL
+        fetch("https://script.google.com/macros/s/AKfycbwOgObzWhtPSXLrfeHzg27nGLGMiLlPExrwZnUZiMQ7l3SEF22YznTQSNLBhpr6NdE/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(result => {
+          message.textContent = "Your order was submitted successfully!";
+          form.reset(); // clear form
+        })
+        .catch(error => {
+          console.error(error);
+          message.textContent = "There was an error submitting the form.";
+        });
+      };
+
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
