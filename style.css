@@ -142,7 +142,7 @@ body {
   .recordSpeed {
     position: absolute;
     left: 2rem;
-    bottom: 2rem;
+    bottom: 20rem;
     will-change: text-shadow;
     animation: rgbText 1s steps(9) 0s infinite alternate;
   }
