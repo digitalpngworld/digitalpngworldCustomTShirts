@@ -43,33 +43,4 @@
     <p>
       <strong>📧 Prefer to email me directly?</strong><br>
       <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
-    </p>
-
-    <button type="submit">Send Request</button>
-  </form>
-
-  <!-- Thank-you message -->
-  <div id="thank-you">
-    <p id="thank-you-message"></p>
-    <button onclick="goBack()">Back</button>
-  </div>
-
-  <script>
-    function showForm(method) {
-      document.getElementById('method-selection').style.display = 'none';
-      const form = document.getElementById('contact-form');
-      const contactLabel = document.getElementById('contact-label');
-      const methodInput = document.getElementById('method');
-
-      methodInput.value = method;
-
-      if (method === 'email') {
-        contactLabel.innerHTML = 'Your Email:<br><input type="email" name="contact" id="contact-input" required>';
-      } else {
-        contactLabel.innerHTML = 'Your Phone Number:<br><input type="tel" name="contact" id="contact-input" required>';
-      }
-
-      form.style.display = 'block';
-    }
-
-    document.getElementById('contact-form').addEventListener('
+    </
