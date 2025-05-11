@@ -13,7 +13,6 @@
 </head>
 <body>
   <h1>Leave your info and I'll reach out to you</h1>
-
   <hr>
 
   <form id="contact-form">
@@ -23,18 +22,39 @@
     <label><input type="radio" name="method" value="email" checked> Email</label><br>
     <label><input type="radio" name="method" value="text"> Text Message</label>
 
-    <label>Your Email or Phone:<br><input type="text" name="contact" required></label>
-    <label>Your Message (optional):<br><textarea name="message" rows="4" required></textarea></label>
+    <!-- This label/input will change dynamically -->
+    <label id="contact-label">
+      Your Email:<br>
+      <input type="email" name="contact" id="contact-input" required>
+    </label>
+
+    <label>Your Message (optional):<br><textarea name="message" rows="4"></textarea></label>
+
     <p>
       <strong>📧 Prefer to email me directly?</strong><br>
       <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
     </p>
+    
     <button type="submit">Send Request</button>
   </form>
 
   <p id="status"></p>
 
   <script>
+    const contactLabel = document.getElementById('contact-label');
+    const contactInput = document.getElementById('contact-input');
+    const radios = document.querySelectorAll('input[name="method"]');
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'email') {
+          contactLabel.innerHTML = 'Your Email:<br><input type="email" name="contact" id="contact-input" required>';
+        } else {
+          contactLabel.innerHTML = 'Your Phone Number:<br><input type="tel" name="contact" id="contact-input" required>';
+        }
+      });
+    });
+
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
