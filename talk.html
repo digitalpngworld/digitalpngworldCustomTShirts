@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Let's Connect</title>
+  <!-- old mobile friendly code just in case
   <style>
 
-    <link rel="stylesheet" href="/style.css">
-    
     body { font-family: Arial, sans-serif; padding: 20px; }
     form { max-width: 500px; display: none; }
     input, textarea { width: 100%; padding: 8px; margin: 10px 0; }
@@ -14,6 +13,143 @@
     #status { margin-top: 20px; color: green; }
     #thank-you { display: none; margin-top: 20px; }
   </style>
+
+  -->
+
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Press Start 2P', cursive;
+    background: #000;
+    color: #fff;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,.4) 100%);
+    z-index: 2;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .noise, .scanlines {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .noise::before {
+    content: '';
+    background: url('https://ice-creme.de/images/background-noise.png');
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.8;
+  }
+
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.5) 51%);
+    background-size: 100% 4px;
+    animation: scanlines 0.2s linear infinite;
+  }
+
+  @keyframes scanlines {
+    from { background-position: 0 0; }
+    to { background-position: 0 4px; }
+  }
+
+  h1, p, label {
+    text-shadow: 0 0 5px #fd5d8d, 0 0 10px #fd5d8d;
+    color: #fff;
+  }
+
+  form {
+    max-width: 500px;
+    margin-top: 30px;
+    display: none;
+    z-index: 3;
+    position: relative;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #1e1b29;
+    border: 1px solid #fd5d8d;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 10px 10px 0 0;
+    background: #fd5d8d;
+    color: #270245;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 5px #fd5d8d;
+  }
+
+  button:hover {
+    background: #ff85a8;
+    box-shadow: 0 0 10px #fd5d8d;
+  }
+
+  #thank-you, #method-selection {
+    z-index: 3;
+    position: relative;
+  }
+
+  a {
+    color: #fd5d8d;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: #fff;
+  }
+
+  /* 📱 Mobile responsiveness */
+  @media (max-width: 600px) {
+    body {
+      padding: 15px;
+    }
+
+    input, textarea {
+      font-size: 12px;
+      padding: 10px;
+    }
+
+    button {
+      font-size: 12px;
+      padding: 10px 16px;
+    }
+
+    h1 {
+      font-size: 14px;
+    }
+
+    form {
+      padding: 10px;
+    }
+  }
+</style>
+
 </head>
 <body>
   <h1>Leave your info and I'll reach out to you</h1>
