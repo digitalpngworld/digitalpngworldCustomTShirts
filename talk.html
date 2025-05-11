@@ -16,25 +16,34 @@
 
   -->
 
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 
 <style>
+  /* Base styles */
   body {
     font-family: 'Press Start 2P', cursive;
     background: #000;
     color: #fff;
     padding: 20px;
-    position: relative;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     overflow: hidden;
+    position: relative;
   }
 
+  /* Background visual effects */
   body::before {
     content: '';
     position: absolute;
-    left: 0; top: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,.4) 100%);
-    z-index: 2;
-    mix-blend-mode: overlay;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .4) 100%);
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -44,7 +53,7 @@
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
 
   .noise::before {
@@ -59,7 +68,7 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.5) 51%);
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
     background-size: 100% 4px;
     animation: scanlines 0.2s linear infinite;
   }
@@ -69,16 +78,18 @@
     to { background-position: 0 4px; }
   }
 
+  /* Headings and layout */
   h1, p, label {
-    text-shadow: 0 0 5px #fd5d8d, 0 0 10px #fd5d8d;
     color: #fff;
+    text-shadow: none;
+    margin-bottom: 10px;
   }
 
-  form {
-    max-width: 500px;
-    margin-top: 30px;
-    display: none;
-    z-index: 3;
+  form, #method-selection, #thank-you {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    z-index: 2;
     position: relative;
   }
 
@@ -95,7 +106,7 @@
 
   button {
     padding: 10px 20px;
-    margin: 10px 10px 0 0;
+    margin: 10px 5px 0 0;
     background: #fd5d8d;
     color: #270245;
     font-family: 'Press Start 2P', cursive;
@@ -110,11 +121,6 @@
     box-shadow: 0 0 10px #fd5d8d;
   }
 
-  #thank-you, #method-selection {
-    z-index: 3;
-    position: relative;
-  }
-
   a {
     color: #fd5d8d;
     text-decoration: underline;
@@ -124,31 +130,27 @@
     color: #fff;
   }
 
-  /* 📱 Mobile responsiveness */
+  #status {
+    margin-top: 20px;
+    color: green;
+  }
+
+  /* Responsive for mobile */
   @media (max-width: 600px) {
     body {
-      padding: 15px;
-    }
-
-    input, textarea {
-      font-size: 12px;
       padding: 10px;
-    }
-
-    button {
-      font-size: 12px;
-      padding: 10px 16px;
     }
 
     h1 {
-      font-size: 14px;
+      font-size: 12px;
     }
 
-    form {
-      padding: 10px;
+    input, textarea, button {
+      font-size: 9px;
     }
   }
 </style>
+
 
 </head>
 <body>
