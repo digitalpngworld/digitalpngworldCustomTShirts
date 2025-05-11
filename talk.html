@@ -12,28 +12,25 @@
   </style>
 </head>
 <body>
-  <h1>Talk to Me</h1>
-  <p>You can either send me an email directly or use the form below.</p>
-
-  <p>
-    <strong>📧 Prefer to email me directly?</strong><br>
-    <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
-  </p>
+  <h1>Leave your info and I'll reach out to you</h1>
 
   <hr>
 
   <h2>Or, send me a message here:</h2>
   <form id="contact-form">
-    <label>Your Name:<br><input type="text" name="name" required></label>
-    <label>Your Message:<br><textarea name="message" rows="4" required></textarea></label>
+    <label>Full Name:<br><input type="text" name="name" required></label>
 
     <p>Preferred Contact Method:</p>
     <label><input type="radio" name="method" value="email" checked> Email</label><br>
     <label><input type="radio" name="method" value="text"> Text Message</label>
 
     <label>Your Email or Phone:<br><input type="text" name="contact" required></label>
-
-    <button type="submit">Send Message</button>
+    <label>Your Message (optional):<br><textarea name="message" rows="4" required></textarea></label>
+    <p>
+      <strong>📧 Prefer to email me directly?</strong><br>
+      <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
+    </p>
+    <button type="submit">Send Request</button>
   </form>
 
   <p id="status"></p>
