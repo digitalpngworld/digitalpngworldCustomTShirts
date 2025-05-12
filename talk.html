@@ -284,19 +284,18 @@
 
     // Function to update the back link depending on whether the method selection or form is visible
     function updateBackLink() {
-      const backLink = document.getElementById('back-link');
-      const methodSelection = document.getElementById('method-selection');
-      const contactForm = document.getElementById('contact-form');
+  const backLink = document.getElementById('back-link');
+  const methodSelection = document.getElementById('method-selection');
+  const formVisible = window.getComputedStyle(document.getElementById('contact-form')).display !== 'none';
+  const methodVisible = window.getComputedStyle(methodSelection).display !== 'none';
 
-      // Check if the method selection screen is visible
-      if (methodSelection.style.display === 'block') {
-        // If on the method selection screen, set the Back link to homepage (digitalpngworld.com)
-        backLink.href = 'https://www.digitalpngworld.com';
-      } else {
-        // If the form is visible, set the Back link to the method selection screen (digitalpngworld.com/talk)
-        backLink.href = 'https://www.digitalpngworld.com/talk';
-      }
-    }
+  if (methodVisible) {
+    backLink.href = 'https://www.digitalpngworld.com';
+  } else if (formVisible) {
+    backLink.href = 'https://www.digitalpngworld.com/talk';
+  }
+}
+
 
     // Update the back link on page load
     window.onload = updateBackLink;
