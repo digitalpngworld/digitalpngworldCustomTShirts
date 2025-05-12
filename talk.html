@@ -9,168 +9,170 @@
 
   <style>
     /* Base styles */
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #000;
-      color: #fff;
-      padding: 20px;
-      margin: 0;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      position: relative;
-    }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
 
-    /* Background visual effects */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .4) 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
+/* Background visual effects */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .4) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
 
-    .noise, .scanlines {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-    }
+.noise, .scanlines {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    .noise::before {
-      content: '';
-      background: url('https://ice-creme.de/images/background-noise.png');
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      opacity: 0.8;
-    }
+.noise::before {
+  content: '';
+  background: url('https://ice-creme.de/images/background-noise.png');
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.8;
+}
 
-    .scanlines::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
-      background-size: 100% 4px;
-      animation: scanlines 0.2s linear infinite;
-    }
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
+  background-size: 100% 4px;
+  animation: scanlines 0.2s linear infinite;
+}
 
-    @keyframes scanlines {
-      from { background-position: 0 0; }
-      to { background-position: 0 4px; }
-    }
+@keyframes scanlines {
+  from { background-position: 0 0; }
+  to { background-position: 0 4px; }
+}
 
-    h1, p, label {
-      color: #fff;
-      text-shadow: none;
-      margin-bottom: 10px;
-    }
+h1, p, label {
+  color: #fff;
+  text-shadow: none;
+  margin-bottom: 10px;
+}
 
-    #method-selection {
-      width: 100%;
-      max-width: 90%; /* Allow method selection to be more flexible on mobile */
-      margin: 20px auto;
-      z-index: 2;
-      position: relative;
-      display: block;
-    }
+#method-selection {
+  width: 100%;
+  max-width: 90%;
+  margin: 20px auto;
+  z-index: 2;
+  position: relative;
+  display: block;
+}
 
-    #contact-form,
-    #thank-you {
-      width: 100%;
-      max-width: 90%; /* Allow the form to take up more space on mobile */
-      margin: 20px auto;
-      z-index: 2;
-      position: relative;
-      display: none;
-    }
+#contact-form,
+#thank-you {
+  width: 100%;
+  max-width: 90%;
+  margin: 20px auto;
+  z-index: 2;
+  position: relative;
+  display: none;
+}
 
-    input, textarea {
-      width: 100%;
-      padding: 15px;  /* More padding for ease of use */
-      margin: 10px 0;
-      background: #1e1b29;
-      border: 1px solid #fd5d8d;
-      color: #fff;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px; /* Larger font size */
-      box-sizing: border-box;  /* Ensure padding doesn't affect width */
-    }
+input, textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  background: #1e1b29;
+  border: 1px solid #444;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
-    button {
-      padding: 15px 30px;
-      margin: 10px 5px 0 0;
-      background: #fd5d8d;
-      color: #270245;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 5px #fd5d8d;
-    }
+button {
+  padding: 15px 30px;
+  margin: 10px 5px 0 0;
+  background: #444;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
 
-    button:hover {
-      background: #ff85a8;
-      box-shadow: 0 0 10px #fd5d8d;
-    }
+button:hover {
+  background: #666;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
 
-    #back-link {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      z-index: 3;
-    }
+#back-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 16px;
+  z-index: 3;
+}
 
-    #back-link:hover {
-      color: #fd5d8d;
-    }
+#back-link:hover {
+  color: #fff;
+}
 
-    a {
-      color: #fd5d8d;
-      text-decoration: underline;
-    }
+a {
+  color: #ccc;
+  text-decoration: underline;
+}
 
-    a:hover {
-      color: #fff;
-    }
+a:hover {
+  color: #fff;
+}
 
-    #status {
-      margin-top: 20px;
-      color: green;
-    }
+#status {
+  margin-top: 20px;
+  color: green;
+}
 
-    /* Responsive for mobile */
-    @media (max-width: 600px) {
-      body {
-        padding: 15px; /* Adjust padding for mobile */
-      }
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
 
-      h1 {
-        font-size: 20px;  /* Larger font size for mobile */
-      }
+  h1 {
+    font-size: 20px;
+  }
 
-      input, textarea, button {
-        font-size: 18px;  /* Larger font size for form elements */
-        padding: 18px;    /* More padding for ease of use on mobile */
-      }
+  input, textarea, button {
+    font-size: 18px;
+    padding: 18px;
+  }
 
-      button {
-        font-size: 18px;  /* Larger button text */
-      }
+  button {
+    font-size: 18px;
+  }
 
-      #method-selection p, #contact-form label {
-        font-size: 18px;  /* Increase label size for better readability */
-      }
-    }
+  #method-selection p, #contact-form label {
+    font-size: 18px;
+  }
+}
+
   </style>
 
 </head>
