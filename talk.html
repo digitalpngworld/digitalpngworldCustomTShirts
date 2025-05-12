@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Let's Connect</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -73,7 +74,7 @@
 
     #method-selection {
       width: 100%;
-      max-width: 400px;
+      max-width: 90%; /* Allow method selection to be more flexible on mobile */
       margin: 20px auto;
       z-index: 2;
       position: relative;
@@ -83,7 +84,7 @@
     #contact-form,
     #thank-you {
       width: 100%;
-      max-width: 400px;
+      max-width: 90%; /* Allow the form to take up more space on mobile */
       margin: 20px auto;
       z-index: 2;
       position: relative;
@@ -92,22 +93,23 @@
 
     input, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 15px;  /* More padding for ease of use */
       margin: 10px 0;
       background: #1e1b29;
       border: 1px solid #fd5d8d;
       color: #fff;
       font-family: 'Roboto', sans-serif;
-      font-size: 10px;
+      font-size: 16px; /* Larger font size */
+      box-sizing: border-box;  /* Ensure padding doesn't affect width */
     }
 
     button {
-      padding: 10px 20px;
+      padding: 15px 30px;
       margin: 10px 5px 0 0;
       background: #fd5d8d;
       color: #270245;
       font-family: 'Roboto', sans-serif;
-      font-size: 10px;
+      font-size: 16px;
       border: none;
       cursor: pointer;
       box-shadow: 0 0 5px #fd5d8d;
@@ -124,7 +126,7 @@
       right: 10px;
       color: #fff;
       text-decoration: none;
-      font-size: 10px;
+      font-size: 16px;
       z-index: 3;
     }
 
@@ -149,15 +151,24 @@
     /* Responsive for mobile */
     @media (max-width: 600px) {
       body {
-        padding: 10px;
+        padding: 15px; /* Adjust padding for mobile */
       }
 
       h1 {
-        font-size: 12px;
+        font-size: 20px;  /* Larger font size for mobile */
       }
 
       input, textarea, button {
-        font-size: 9px;
+        font-size: 18px;  /* Larger font size for form elements */
+        padding: 18px;    /* More padding for ease of use on mobile */
+      }
+
+      button {
+        font-size: 18px;  /* Larger button text */
+      }
+
+      #method-selection p, #contact-form label {
+        font-size: 18px;  /* Increase label size for better readability */
       }
     }
   </style>
