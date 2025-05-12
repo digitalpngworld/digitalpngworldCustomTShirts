@@ -183,7 +183,7 @@
  
   <h1>Leave your info &<br> I'll reach out to you</h1>
   <br>
-  <a href="https://www.digitalpngworld.com/talk" id="back-link">← Back</a> <!-- back link to digitalpngworld.com/talk -->
+  <a href="https://www.digitalpngworld.com" id="back-link">← Back</a> <!-- Default link to homepage -->
   <!-- Contact method buttons -->
   <div id="method-selection">
     <p>Preferred Contact Method?</p>
@@ -274,6 +274,56 @@
       document.getElementById('thank-you').style.display = 'none';
       document.getElementById('method-selection').style.display = 'block';
     }
+
+    // Function to update the back link depending on whether the method selection or form is visible
+function updateBackLink() {
+  const backLink = document.getElementById('back-link');
+  const methodSelection = document.getElementById('method-selection');
+  const contactForm = document.getElementById('contact-form');
+
+  // Check if the method selection screen is visible
+  if (methodSelection.style.display === 'block') {
+    // If on the method selection screen, set the Back link to homepage (digitalpngworld.com)
+    backLink.href = 'https://www.digitalpngworld.com';
+  } else {
+    // If the form is visible, set the Back link to the method selection screen (digitalpngworld.com/talk)
+    backLink.href = 'https://www.digitalpngworld.com/talk';
+  }
+}
+
+// Update the back link on page load
+window.onload = updateBackLink;
+
+// Function to show the form and update the back link
+function showForm(method) {
+  document.getElementById('method-selection').style.display = 'none';
+  const form = document.getElementById('contact-form');
+  const contactLabel = document.getElementById('contact-label');
+  const methodInput = document.getElementById('method');
+
+  methodInput.value = method;
+
+  if (method === 'email') {
+    contactLabel.innerHTML = 'Your Email:<br><input type="email" name="contact" id="contact-input" required>';
+  } else {
+    contactLabel.innerHTML = 'Your Phone Number:<br><input type="tel" name="contact" id="contact-input" required>';
+  }
+
+  form.style.display = 'block';
+
+  // Update the back link to point to the method selection screen
+  updateBackLink();
+}
+
+// Function to go back to the method selection page and update the back link
+function goBack() {
+  document.getElementById('thank-you').style.display = 'none';
+  document.getElementById('method-selection').style.display = 'block';
+
+  // Update the back link to point to the homepage after going back to method selection
+  updateBackLink();
+}
+
   </script>
 </body>
 </html>
