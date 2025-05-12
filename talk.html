@@ -173,18 +173,54 @@ a:hover {
     font-size: 18px;
   }
 }
+  #background-effects {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#background-effects .noise::before,
+#background-effects .scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+#background-effects .noise::before {
+  background: url('https://ice-creme.de/images/background-noise.png');
+  opacity: 0.3;
+}
+
+#background-effects .scanlines::before {
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
+  background-size: 100% 4px;
+  animation: scanlines 0.2s linear infinite;
+  opacity: 0.15;
+}
+
+@keyframes scanlines {
+  from { background-position: 0 0; }
+  to { background-position: 0 4px; }
+}
 
   </style>
 
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="scanlines"></div>
+  <!-- Visual background container (for background-only effects) -->
+  <div id="background-effects">
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+  </div>
 
+  <!-- Visible content above background effects -->
   <h1>Leave your info &<br> I'll reach out to you</h1>
   <br>
-  <a href="https://www.digitalpngworld.com" id="back-link">← Back</a> <!-- Default link to homepage -->
-  
+  <a href="https://www.digitalpngworld.com" id="back-link">← Back</a>
+
   <!-- Contact method buttons -->
   <div id="method-selection">
     <p>Preferred Contact Method?</p>
