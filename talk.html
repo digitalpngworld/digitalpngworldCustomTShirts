@@ -132,6 +132,20 @@
       background: #ff85a8;
       box-shadow: 0 0 10px #fd5d8d;
     }
+    
+    #back-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 10px;
+  z-index: 3;
+}
+
+#back-link:hover {
+  color: #fd5d8d;
+}
 
     a {
       color: #fd5d8d;
@@ -178,6 +192,9 @@
 
   <!-- Hidden form -->
   <form id="contact-form">
+    
+    <a href="https://digitalpngworld.com/talk" id="back-link">← Back</a> <!-- back link to digitalpngworld.com/talk -->
+
     <input type="hidden" name="method" id="method">
 
     <label>Full Name:<br>
@@ -197,7 +214,7 @@
       <strong>📧 Prefer to email me directly?</strong><br>
       <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
     </p>
-
+    <br><br>
     <button type="submit">Send Request</button>
   </form>
 
