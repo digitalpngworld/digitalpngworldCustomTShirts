@@ -257,6 +257,9 @@
       document.getElementById('thank-you-message').innerText =
         `✅ Thanks, ${firstName}! I’ll reach out to you ASAP.`;
       document.getElementById('thank-you').style.display = 'block';
+
+      // Update the back link after form submission
+      updateBackLink();
     });
 
     // Go back to the method selection page
