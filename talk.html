@@ -1,270 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Let's Connect</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     /* Base styles */
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #000;
-  color: #fff;
-  padding: 20px;
-  margin: 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-form {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
-}
-    
-/* Background visual effects */
-body::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .65) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
+    /* Background effects using pseudo-elements */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.noise, .scanlines {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-}
+    body::before {
+      background: url('https://ice-creme.de/images/background-noise.png') repeat;
+      opacity: 0.3;
+    }
 
-.noise::before {
-  content: '';
-  background: url('https://ice-creme.de/images/background-noise.png');
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  opacity: 0.3; /* Softer noise layer */
-}
+    body::after {
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
+      background-size: 100% 4px;
+      animation: scanlines 0.2s linear infinite;
+      opacity: 0.15;
+    }
 
-.scanlines::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
-  background-size: 100% 4px;
-  animation: scanlines 0.2s linear infinite;
-  opacity: 0.15; /* Add this line to control opacity */
-}
+    @keyframes scanlines {
+      from { background-position: 0 0; }
+      to { background-position: 0 4px; }
+    }
 
-@keyframes scanlines {
-  from { background-position: 0 0; }
-  to { background-position: 0 4px; }
-}
+    /* Content container */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-h1, p, label {
-  color: #fff;
-  text-shadow: none;
-  margin-bottom: 10px;
-}
+    h1 {
+      margin-bottom: 20px;
+    }
 
-#method-selection {
-  width: 100%;
-  max-width: 90%;
-  margin: 20px auto;
-  z-index: 2;
-  position: relative;
-  display: block;
-}
+    #back-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 16px;
+      z-index: 2;
+    }
 
-#contact-form,
-#thank-you {
-  width: 100%;
-  max-width: 90%;
-  margin: 20px auto;
-  z-index: 2;
-  position: relative;
-  display: none;
-}
+    #back-link:hover {
+      color: #fff;
+    }
 
-input, textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  background: #1e1b29;
-  border: 1px solid #444;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  box-sizing: border-box;
-}
+    #method-selection,
+    #contact-form,
+    #thank-you {
+      margin-top: 20px;
+    }
 
-button {
-  padding: 15px 30px;
-  margin: 10px 5px 0 0;
-  background: #444;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
+    #contact-form,
+    #thank-you {
+      display: none;
+    }
 
-button:hover {
-  background: #666;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      background: #1e1b29;
+      border: 1px solid #444;
+      color: #fff;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-#back-link {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #ccc;
-  text-decoration: none;
-  font-size: 16px;
-  z-index: 3;
-}
+    button {
+      padding: 15px 30px;
+      margin: 10px 5px 0 0;
+      background: #444;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
 
-#back-link:hover {
-  color: #fff;
-}
+    button:hover {
+      background: #666;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
 
-a {
-  color: #ccc;
-  text-decoration: underline;
-}
+    a {
+      color: #ccc;
+      text-decoration: underline;
+    }
 
-a:hover {
-  color: #fff;
-}
+    a:hover {
+      color: #fff;
+    }
 
-#status {
-  margin-top: 20px;
-  color: green;
-}
+    #status {
+      margin-top: 20px;
+      color: green;
+    }
 
-/* Responsive for mobile */
-@media (max-width: 600px) {
-  body {
-    padding: 15px;
-  }
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
 
-  h1 {
-    font-size: 20px;
-  }
+      h1 {
+        font-size: 20px;
+      }
 
-  input, textarea, button {
-    font-size: 18px;
-    padding: 18px;
-  }
+      input, textarea, button {
+        font-size: 18px;
+        padding: 18px;
+      }
 
-  button {
-    font-size: 18px;
-  }
+      button {
+        font-size: 18px;
+      }
 
-  #method-selection p, #contact-form label {
-    font-size: 18px;
-  }
-}
-  #background-effects {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#background-effects .noise::before,
-#background-effects .scanlines::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-}
-
-#background-effects .noise::before {
-  background: url('https://ice-creme.de/images/background-noise.png');
-  opacity: 0.3;
-}
-
-#background-effects .scanlines::before {
-  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
-  background-size: 100% 4px;
-  animation: scanlines 0.2s linear infinite;
-  opacity: 0.15;
-}
-
-@keyframes scanlines {
-  from { background-position: 0 0; }
-  to { background-position: 0 4px; }
-}
-
+      #method-selection p, #contact-form label {
+        font-size: 18px;
+      }
+    }
   </style>
-
 </head>
 <body>
-  <!-- Visual background container (for background-only effects) -->
-  <div id="background-effects">
-    <div class="noise"></div>
-    <div class="scanlines"></div>
-  </div>
-
-  <!-- Visible content above background effects -->
-  <h1>Leave your info &<br> I'll reach out to you</h1>
-  <br>
   <a href="https://www.digitalpngworld.com" id="back-link">← Back</a>
+  <div class="container">
+    <h1>Leave your info &<br> I'll reach out to you</h1>
 
-  <!-- Contact method buttons -->
-  <div id="method-selection">
-    <p>Preferred Contact Method?</p>
-    <button onclick="showForm('email')">Email</button>
-    <button onclick="showForm('text')">Text Message</button>
-  </div>
+    <!-- Contact method buttons -->
+    <div id="method-selection">
+      <p>Preferred Contact Method?</p>
+      <button onclick="showForm('email')">Email</button>
+      <button onclick="showForm('text')">Text Message</button>
+    </div>
 
-  <!-- Hidden form -->
-  <form id="contact-form">
-    <input type="hidden" name="method" id="method">
+    <!-- Hidden form -->
+    <form id="contact-form">
+      <input type="hidden" name="method" id="method" />
 
-    <label>Full Name:<br>
-      <input type="text" name="name" id="name" required>
-    </label>
+      <label>Full Name:<br>
+        <input type="text" name="name" id="name" required />
+      </label>
 
-    <label id="contact-label">
-      Your Contact:<br>
-      <input type="text" name="contact" id="contact-input" required>
-    </label>
+      <label id="contact-label">
+        Your Contact:<br>
+        <input type="text" name="contact" id="contact-input" required />
+      </label>
 
-    <label>Your Message (optional):<br>
-      <textarea name="message" rows="4"></textarea>
-    </label>
+      <label>Your Message (optional):<br>
+        <textarea name="message" rows="4"></textarea>
+      </label>
 
-    <p>
-      <strong>📧 Prefer to email me directly?</strong><br>
-      <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
-    </p>
-    <br><br>
-    <button type="submit">Send Request</button>
-  </form>
+      <p>
+        <strong>📧 Prefer to email me directly?</strong><br>
+        <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
+      </p>
+      <br><br>
+      <button type="submit">Send Request</button>
+    </form>
 
-  <!-- Thank-you message -->
-  <div id="thank-you">
-    <p id="thank-you-message"></p>
-    <button onclick="goBack()">Back</button>
+    <!-- Thank-you message -->
+    <div id="thank-you">
+      <p id="thank-you-message"></p>
+      <button onclick="goBack()">Back</button>
+    </div>
   </div>
 
   <script>
@@ -333,18 +268,17 @@ a:hover {
 
     // Function to update the back link depending on whether the method selection or form is visible
     function updateBackLink() {
-  const backLink = document.getElementById('back-link');
-  const methodSelection = document.getElementById('method-selection');
-  const formVisible = window.getComputedStyle(document.getElementById('contact-form')).display !== 'none';
-  const methodVisible = window.getComputedStyle(methodSelection).display !== 'none';
+      const backLink = document.getElementById('back-link');
+      const methodSelection = document.getElementById('method-selection');
+      const formVisible = window.getComputedStyle(document.getElementById('contact-form')).display !== 'none';
+      const methodVisible = window.getComputedStyle(methodSelection).display !== 'none';
 
-  if (methodVisible) {
-    backLink.href = 'https://www.digitalpngworld.com';
-  } else if (formVisible) {
-    backLink.href = 'https://www.digitalpngworld.com/talk';
-  }
-}
-
+      if (methodVisible) {
+        backLink.href = 'https://www.digitalpngworld.com';
+      } else if (formVisible) {
+        backLink.href = 'https://www.digitalpngworld.com/talk';
+      }
+    }
 
     // Update the back link on page load
     window.onload = updateBackLink;
