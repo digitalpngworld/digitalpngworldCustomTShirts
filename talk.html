@@ -64,16 +64,18 @@
 
     /* Positioning the Back button */
     #back-link {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 1.5vw;
-      text-decoration: none;
-      color: #fff;
-      background: #444;
-      padding: 10px;
-      border-radius: 4px;
-    }
+  position: absolute;
+  top: 10px; /* Adjusts the vertical position */
+  right: 0;
+  font-size: 2.5vw;
+  text-decoration: none;
+  color: #fff;
+  background: #444;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1; /* Ensures it appears above other elements */
+}
+
 
     #back-link:hover {
       background: #666;
