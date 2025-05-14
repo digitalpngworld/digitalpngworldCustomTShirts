@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Let's Connect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
-    /* Base styles */
-    body {
+    /* Reset and full-height setup */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       font-family: 'Roboto', sans-serif;
       background: #000;
       color: #fff;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
+      text-align: center;
       overflow: hidden;
     }
 
-    /* Background effects using pseudo-elements */
-    body::before,
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* Background image setup */
     body::before {
-      background: url('https://ice-creme.de/images/background-noise.png') repeat;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://ice-creme.de/images/background-noise.png') center/cover no-repeat;
       opacity: 0.3;
+      z-index: -1;
     }
 
-    body::after {
+    /* Scanline effect */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
       background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
       background-size: 100% 4px;
       animation: scanlines 0.2s linear infinite;
@@ -51,44 +55,17 @@
       to { background-position: 0 4px; }
     }
 
-    /* Content container */
-    .container {
-      position: relative;
-      z-index: 1;
+    /* Content styling */
+    h1, p, label {
+      margin-bottom: 10px;
+    }
+
+    #method-selection, #contact-form, #thank-you {
       width: 100%;
       max-width: 600px;
-      padding: 20px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    #back-link {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 16px;
+      margin: 20px auto;
       z-index: 2;
-    }
-
-    #back-link:hover {
-      color: #fff;
-    }
-
-    #method-selection,
-    #contact-form,
-    #thank-you {
-      margin-top: 20px;
-    }
-
-    #contact-form,
-    #thank-you {
-      display: none;
+      position: relative;
     }
 
     input, textarea {
@@ -119,6 +96,20 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
+    #back-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 16px;
+      z-index: 3;
+    }
+
+    #back-link:hover {
+      color: #fff;
+    }
+
     a {
       color: #ccc;
       text-decoration: underline;
@@ -133,7 +124,7 @@
       color: green;
     }
 
-    /* Responsive adjustments */
+    /* Responsive for mobile */
     @media (max-width: 600px) {
       body {
         padding: 15px;
@@ -159,57 +150,47 @@
   </style>
 </head>
 <body>
+  <div class="scanlines"></div>
+
+  <h1>Leave your info &<br> I'll reach out to you</h1>
   <a href="https://www.digitalpngworld.com" id="back-link">← Back</a>
-  <div class="container">
-    <h1>Leave your info &<br> I'll reach out to you</h1>
 
-    <!-- Contact method buttons -->
-    <div id="method-selection">
-      <p>Preferred Contact Method?</p>
-      <button onclick="showForm('email')">Email</button>
-      <button onclick="showForm('text')">Text Message</button>
-    </div>
+  <div id="method-selection">
+    <p>Preferred Contact Method?</p>
+    <button onclick="showForm('email')">Email</button>
+    <button onclick="showForm('text')">Text Message</button>
+  </div>
 
-    <!-- Hidden form -->
-    <form id="contact-form">
-      <input type="hidden" name="method" id="method" />
+  <form id="contact-form" style="display: none;">
+    <input type="hidden" name="method" id="method">
+    <label>Full Name:<br>
+      <input type="text" name="name" id="name" required>
+    </label>
+    <label id="contact-label">
+      Your Contact:<br>
+      <input type="text" name="contact" id="contact-input" required>
+    </label>
+    <label>Your Message (optional):<br>
+      <textarea name="message" rows="4"></textarea>
+    </label>
+    <p>
+      <strong>📧 Prefer to email me directly?</strong><br>
+      <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
+    </p>
+    <button type="submit">Send Request</button>
+  </form>
 
-      <label>Full Name:<br>
-        <input type="text" name="name" id="name" required />
-      </label>
-
-      <label id="contact-label">
-        Your Contact:<br>
-        <input type="text" name="contact" id="contact-input" required />
-      </label>
-
-      <label>Your Message (optional):<br>
-        <textarea name="message" rows="4"></textarea>
-      </label>
-
-      <p>
-        <strong>📧 Prefer to email me directly?</strong><br>
-        <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
-      </p>
-      <br><br>
-      <button type="submit">Send Request</button>
-    </form>
-
-    <!-- Thank-you message -->
-    <div id="thank-you">
-      <p id="thank-you-message"></p>
-      <button onclick="goBack()">Back</button>
-    </div>
+  <div id="thank-you" style="display: none;">
+    <p id="thank-you-message"></p>
+    <button onclick="goBack()">Back</button>
   </div>
 
   <script>
-    // Show the form based on the preferred contact method (email/text)
     function showForm(method) {
       document.getElementById('method-selection').style.display = 'none';
       const form = document.getElementById('contact-form');
       const contactLabel = document.getElementById('contact-label');
       const methodInput = document.getElementById('method');
-
       methodInput.value = method;
 
       if (method === 'email') {
@@ -219,17 +200,14 @@
       }
 
       form.style.display = 'block';
-
-      // Update the back link to point to the method selection screen
       updateBackLink();
     }
 
-    // Submit the form and send data to the backend
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
       const nameInput = form.name.value.trim();
-      const firstName = nameInput.split(' ')[0]; // Get first word
+      const firstName = nameInput.split(' ')[0];
 
       const data = {
         name: nameInput,
@@ -252,21 +230,15 @@
       document.getElementById('thank-you-message').innerText =
         `✅ Thanks, ${firstName}! I’ll reach out to you ASAP.`;
       document.getElementById('thank-you').style.display = 'block';
-
-      // Update the back link after form submission
       updateBackLink();
     });
 
-    // Go back to the method selection page
     function goBack() {
       document.getElementById('thank-you').style.display = 'none';
       document.getElementById('method-selection').style.display = 'block';
-
-      // Update the back link to point to the homepage after going back to method selection
       updateBackLink();
     }
 
-    // Function to update the back link depending on whether the method selection or form is visible
     function updateBackLink() {
       const backLink = document.getElementById('back-link');
       const methodSelection = document.getElementById('method-selection');
@@ -280,7 +252,6 @@
       }
     }
 
-    // Update the back link on page load
     window.onload = updateBackLink;
   </script>
 </body>
