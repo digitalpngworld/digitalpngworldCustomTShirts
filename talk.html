@@ -89,7 +89,7 @@
     <button onclick="showForm('text')">Text Message</button>
   </div>
 
-  <form id="contact-form">
+  <form id="contact-form" style="display:none;">
     <input type="hidden" name="method" id="method">
     <label>Full Name:<br>
       <input type="text" name="name" id="name" required>
@@ -108,7 +108,7 @@
     <button type="submit">Send Request</button>
   </form>
 
-  <div id="thank-you">
+  <div id="thank-you" style="display:none;">
     <p id="thank-you-message"></p>
     <button onclick="goBack()">Back</button>
   </div>
