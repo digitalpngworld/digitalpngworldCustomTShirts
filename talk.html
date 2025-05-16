@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Let's Connect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     /* Base styles */
     body {
@@ -27,12 +27,14 @@
       margin-bottom: 20px;
     }
 
-    p, label {
+    p,
+    label {
       font-size: 2.5vw;
       margin-bottom: 10px;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 15px;
       margin: 10px 0;
@@ -110,11 +112,14 @@
         font-size: 8vw;
       }
 
-      p, label {
+      p,
+      label {
         font-size: 4vw;
       }
 
-      input, textarea, button {
+      input,
+      textarea,
+      button {
         font-size: 4vw;
         padding: 10px;
       }
@@ -129,7 +134,7 @@
 </head>
 <body>
   <a href="https://www.digitalpngworld.com" id="back-link">← Back</a>
-  <h1>Leave your info &<br> I'll reach out to you</h1>
+  <h1>Leave your info &<br /> I'll reach out to you</h1>
 
   <div id="method-selection">
     <p>Preferred Contact Method?</p>
@@ -137,31 +142,45 @@
     <button onclick="showForm('text')">Text Message</button>
   </div>
 
-  <form id="contact-form" style="display:none;">
-    <input type="hidden" name="method" id="method">
-    <label>Full Name:<br>
-      <input type="text" name="name" id="name" required>
+  <form
+    id="contact-form"
+    style="display:none"
+    action="https://script.google.com/macros/s/AKfycbz1e5PTA1Jd4DPngGdiSVTXxQF0jaHHq5Y-eB7FUs5V2KA2_mHIzH8WKSKKpC0OZSlOUA/exec"
+    method="POST"
+    target="hidden_iframe"
+  >
+    <input type="hidden" name="method" id="method" />
+    <label>
+      Full Name:<br />
+      <input type="text" name="name" id="name" required />
     </label>
     <label id="contact-label">
-      Your Contact:<br>
-      <input type="text" name="contact" id="contact-input" required>
+      Your Contact:<br />
+      <input type="text" name="contact" id="contact-input" required />
     </label>
-    <label>Your Message (optional):<br>
+    <label>
+      Your Message (optional):<br />
       <textarea name="message" rows="4"></textarea>
     </label>
     <p>
-      <strong>📧 Prefer to email me directly?</strong><br>
+      <strong>📧 Prefer to email me directly?</strong><br />
       <a href="mailto:digitalpngworld@gmail.com">Click here to open your email app</a>
     </p>
     <button type="submit">Send Request</button>
   </form>
 
-  <div id="thank-you" style="display:none;">
+  <div id="thank-you" style="display:none">
     <p id="thank-you-message"></p>
     <button onclick="goBack()">Back</button>
   </div>
 
-    <script>
+  <iframe
+    name="hidden_iframe"
+    id="hidden_iframe"
+    style="display:none"
+  ></iframe>
+
+  <script>
     function showForm(method) {
       document.getElementById('method-selection').style.display = 'none';
       const form = document.getElementById('contact-form');
@@ -171,42 +190,44 @@
       methodInput.value = method;
 
       if (method === 'email') {
-        contactLabel.innerHTML = 'Your Email:<br><input type="email" name="contact" id="contact-input" required>';
+        contactLabel.innerHTML =
+          'Your Email:<br><input type="email" name="contact" id="contact-input" required>';
       } else {
-        contactLabel.innerHTML = 'Your Phone Number:<br><input type="tel" name="contact" id="contact-input" required>';
+        contactLabel.innerHTML =
+          'Your Phone Number:<br><input type="tel" name="contact" id="contact-input" required>';
       }
 
       form.style.display = 'block';
       updateBackLink();
     }
 
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const nameInput = form.name.value.trim();
-      const firstName = nameInput.split(' ')[0];
+    let submitted = false;
 
-      const formData = new FormData(form);
-
-      const response = await fetch('https://script.google.com/macros/s/AKfycbz1e5PTA1Jd4DPngGdiSVTXxQF0jaHHq5Y-eB7FUs5V2KA2_mHIzH8WKSKKpC0OZSlOUA/exec', {
-        method: 'POST',
-        body: formData
+    document
+      .getElementById('contact-form')
+      .addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitted = true;
+        e.target.submit();
       });
 
-      const text = await response.text();
-      console.log('Response:', text);
-      
-      if (!response.ok) {
-        alert('Error sending the form: ' + text);
-      }
-      
-      form.reset();
-      form.style.display = 'none';
-      document.getElementById('thank-you-message').innerText =
-        `✅ Thanks, ${firstName}! I’ll reach out to you ASAP.`;
-      document.getElementById('thank-you').style.display = 'block';
-      updateBackLink();
-    });
+    document
+      .getElementById('hidden_iframe')
+      .addEventListener('load', function () {
+        if (submitted) {
+          submitted = false;
+
+          const form = document.getElementById('contact-form');
+          const nameInput = form.name.value.trim();
+          const firstName = nameInput.split(' ')[0];
+
+          form.reset();
+          form.style.display = 'none';
+          document.getElementById('thank-you-message').innerText = `✅ Thanks, ${firstName}! I’ll reach out to you ASAP.`;
+          document.getElementById('thank-you').style.display = 'block';
+          updateBackLink();
+        }
+      });
 
     function goBack() {
       document.getElementById('thank-you').style.display = 'none';
@@ -217,8 +238,10 @@
     function updateBackLink() {
       const backLink = document.getElementById('back-link');
       const methodSelection = document.getElementById('method-selection');
-      const formVisible = window.getComputedStyle(document.getElementById('contact-form')).display !== 'none';
-      const methodVisible = window.getComputedStyle(methodSelection).display !== 'none';
+      const formVisible =
+        window.getComputedStyle(document.getElementById('contact-form')).display !== 'none';
+      const methodVisible =
+        window.getComputedStyle(methodSelection).display !== 'none';
 
       if (methodVisible) {
         backLink.href = 'https://www.digitalpngworld.com';
