@@ -194,8 +194,8 @@
       });
 
       const text = await response.text();
-      console.log('Response from server:', text);
-
+      console.log('Response:', text);
+      
       if (!response.ok) {
         alert('Error sending the form: ' + text);
       }
