@@ -188,11 +188,18 @@
 
       const formData = new FormData(form);
 
-      await fetch('https://script.google.com/macros/s/AKfycbz1e5PTA1Jd4DPngGdiSVTXxQF0jaHHq5Y-eB7FUs5V2KA2_mHIzH8WKSKKpC0OZSlOUA/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbz1e5PTA1Jd4DPngGdiSVTXxQF0jaHHq5Y-eB7FUs5V2KA2_mHIzH8WKSKKpC0OZSlOUA/exec', {
         method: 'POST',
         body: formData
       });
 
+      const text = await response.text();
+      console.log('Response from server:', text);
+
+      if (!response.ok) {
+        alert('Error sending the form: ' + text);
+      }
+      
       form.reset();
       form.style.display = 'none';
       document.getElementById('thank-you-message').innerText =
