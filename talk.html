@@ -161,7 +161,7 @@
     <button onclick="goBack()">Back</button>
   </div>
 
-  <script>
+    <script>
     function showForm(method) {
       document.getElementById('method-selection').style.display = 'none';
       const form = document.getElementById('contact-form');
@@ -186,21 +186,11 @@
       const nameInput = form.name.value.trim();
       const firstName = nameInput.split(' ')[0];
 
-      const data = {
-        name: nameInput,
-        message: form.message.value,
-        method: form.method.value,
-        contact: form.contact.value
-      };
+      const formData = new FormData(form);
 
       await fetch('https://script.google.com/macros/s/AKfycbz1e5PTA1Jd4DPngGdiSVTXxQF0jaHHq5Y-eB7FUs5V2KA2_mHIzH8WKSKKpC0OZSlOUA/exec', {
-
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        body: formData
       });
 
       form.reset();
